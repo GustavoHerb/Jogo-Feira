@@ -3,9 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Jogo de Perguntas e Respostas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+        #gameContainer {
+            width: 800px;
+            height: 600px;
+            margin: 0 auto;
+            position: relative;
+            background-color: #ddd;
+        }
+        .character {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: blue;
+            border-radius: 50%;
+            transition: all 0.3s ease-in-out;
+        }
+        #npc {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            border-radius: 50%;
+            left: 700px;
+            top: 300px;
+        }
+        #question {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        #options {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .option {
+            font-size: 18px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        #result {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+        #nextButton {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    
+    <div id="gameContainer">
+        <div id="character" class="character"></div>
+        <div id="npc"></div>
+        <div class="container">
+            <h1>Jogo de Perguntas e Respostas</h1>
+            <div id="question"></div>
+            <div id="options"></div>
+            <div id="result"></div>
+            <button id="nextButton">Próxima Pergunta</button>
+        </div>
+    </div>
+
+</body>
+</html>
+
+
+    <script>
+const questions = [
+    {
+        question: "Qual é a capital do Brasil?",
+        options: ["Rio de Janeiro", "Brasília", "São Paulo", "Salvador"],
+        answer: "Brasília"
+    },
+    {
+        question: "Quem escreveu 'Dom Quixote'?",
+        options: ["Miguel de Cervantes", "William Shakespeare", "Jane Austen", "Charles Dickens"],
+        answer: "Miguel de Cervantes"
+    },
+    {
+        question: "Qual é o maior planeta do sistema solar?",
+        options: ["Júpiter", "Vênus", "Terra", "Saturno"],
+        answer: "Júpiter"
+    }
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+
+const questionElement = document.getElementById('question');
+const optionsElement = document.getElementById('options');
+const resultElement = document.getElementById('result');
+const nextButton = document.getElementById('nextButton');
+
+const character = document.getElementById('character');
+const npc = document.getElementById('npc');
+
+let characterPositionX = 50;
+let characterPositionY = 300;
+
+character.style.left = characterPositionX + 'px';
+character.style.top = characterPositionY + 'px';
+
+function moveCharacter(directionX, directionY) {
+    characterPositionX += directionX * 50;
+    characterPositionY += directionY * 50;
+
+    character.style.left = characterPositionX + 'px';
+    character.style.top = characterPositionY + 'px';
+
+    checkCollision();
+}
+
+function checkCollision() {
+    const characterRect = character.getBoundingClientRect();
+    const npcRect = npc.getBoundingClientRect();
+
+    if (characterRect.right >= npcRect.left && characterRect.left <= npcRect.right &&
+        characterRect.bottom >= npcRect.top && characterRect.top <= npcRect.bottom) {
+        showQuestion();
+    }
+}
+
+function showQuestion() {
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    optionsElement.innerHTML = '';
+
+    currentQuestion.options.forEach((option, index) => {
+        const button = document.createElement('button');
+        button.textContent = option;
+        button.classList.add('option');
+        button.addEventListener('click', () => checkAnswer(option));
+        optionsElement.appendChild(button);
+    });
+}
+
+function checkAnswer(selectedOption) {
+    const currentQuestion = questions[currentQuestionIndex];
+    if (selectedOption === currentQuestion.answer) {
+        resultElement.textContent = "Resposta correta!";
+        score++;
+    } else {
+        resultElement.textContent = "Resposta incorreta.";
+    }
+
+    nextButton.style.display = 'block';
+}
+
+function showNextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        showQuestion();
+        resultElement.textContent = '';
+        nextButton.style.display = 'none';
+    } else {
+        endGame();
+    }
+}
+
+function endGame() {
+    questionElement.textContent = `Você completou o jogo! Sua pontuação final é ${score} de ${questions.length}.`;
+    optionsElement.innerHTML = '';
+    resultElement.textContent = '';
+    nextButton.style.display = 'none';
+}
+
+nextButton.addEventListener('click', showNextQuestion);
+
+// Event listeners for arrow keys to move the character
+document.addEventListener('keydown', function(event) {
+    switch(event.keyCode) {
+        case 37: // Left arrow
+            moveCharacter(-1, 0);
+            break;
+        case 38: // Up arrow
+            moveCharacter(0, -1);
+            break;
+        case 39: // Right arrow
+            moveCharacter(1, 0);
+            break;
+        case 40: // Down arrow
+            moveCharacter(0, 1);
+            break;
+    }
+});
+
+
+    </script>
 </body>
 </html>
