@@ -7,33 +7,25 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            overflow: hidden;
+            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
-        #gameContainer {
-            width: 800px;
-            height: 600px;
-            margin: 0 auto;
-            position: relative;
-            background-color: #ddd;
+        .container {
+            max-width: 600px;
+            text-align: center;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
         }
-        .character {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            background-color: blue;
-            border-radius: 50%;
-            transition: all 0.3s ease-in-out;
-        }
-        #npc {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            background-color: red;
-            border-radius: 50%;
-            left: 700px;
-            top: 300px;
+        h1 {
+            margin-bottom: 30px;
+            color: #333;
         }
         #question {
             font-size: 24px;
@@ -48,27 +40,46 @@
             font-size: 18px;
             margin-bottom: 10px;
             cursor: pointer;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            background-color: #f0f0f0;
+            transition: background-color 0.3s ease;
+        }
+        .option:hover {
+            background-color: #e0e0e0;
         }
         #result {
             font-size: 20px;
             margin-top: 20px;
         }
-        #nextButton {
-            display: none;
+        .correct {
+            background-color: #8BC34A;
+        }
+        .incorrect {
+            background-color: #FF5722;
+        }
+        button {
+            font-size: 16px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: black;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
-    <div id="gameContainer">
-        <div id="character" class="character"></div>
-        <div id="npc"></div>
-        <div class="container">
-            <h1>Jogo de Perguntas e Respostas</h1>
-            <div id="question"></div>
-            <div id="options"></div>
-            <div id="result"></div>
-            <button id="nextButton">Próxima Pergunta</button>
-        </div>
+    <div class="container">
+        <h1>Jogo de Perguntas e Respostas</h1>
+        <div id="question"></div>
+        <div id="options"></div>
+        <div id="result"></div>
     </div>
 
     <script>
@@ -87,6 +98,49 @@
                 question: "Qual é o maior planeta do sistema solar?",
                 options: ["Júpiter", "Vênus", "Terra", "Saturno"],
                 answer: "Júpiter"
+            },
+
+            {
+                question: "Qual é o maior planeta do sistema solar?",
+                options: ["Júpiter", "Vênus", "Terra", "Saturno"],
+                answer: "Júpiter"
+            },
+
+    {
+        question: "Qual é o maior planeta do sistema solar?",
+        options: ["Júpiter", "Vênus", "Terra", "Saturno"],
+        answer: "Júpiter"
+    },
+
+            {
+                question: "Qual é o maior planeta do sistema solar?",
+                options: ["Júpiter", "Vênus", "Terra", "Saturno"],
+                answer: "Júpiter"
+            }
+
+            ,
+            {
+                question: "Qual é o maior planeta do sistema solar?",
+                options: ["Júpiter", "Vênus", "Terra", "Saturno"],
+                answer: "Júpiter"
+            },
+
+            {
+                question: "Qual é o maior planeta do sistema solar?",
+                options: ["Júpiter", "Vênus", "Terra", "Saturno"],
+                answer: "Júpiter"
+            },
+
+    {
+        question: "Qual é o maior planeta do sistema solar?",
+        options: ["Júpiter", "Vênus", "Terra", "Saturno"],
+        answer: "Júpiter"
+    },
+
+            {
+                question: "Qual é o maior planeta do sistema solar?",
+                options: ["Júpiter", "Vênus", "Terra", "Saturno"],
+                answer: "Júpiter"
             }
         ];
 
@@ -96,43 +150,6 @@
         const questionElement = document.getElementById('question');
         const optionsElement = document.getElementById('options');
         const resultElement = document.getElementById('result');
-        const nextButton = document.getElementById('nextButton');
-
-        const character = document.getElementById('character');
-        const npc = document.getElementById('npc');
-
-        let characterPositionX = 50;
-        let characterPositionY = 300;
-        const moveSpeed = 5; // Velocidade de movimento constante
-
-        character.style.left = characterPositionX + 'px';
-        character.style.top = characterPositionY + 'px';
-
-        function moveCharacter(dx, dy) {
-            const newPositionX = characterPositionX + dx;
-            const newPositionY = characterPositionY + dy;
-
-            // Limitando o personagem dentro do container do jogo
-            if (newPositionX >= 0 && newPositionX <= 750 && newPositionY >= 0 && newPositionY <= 550) {
-                characterPositionX = newPositionX;
-                characterPositionY = newPositionY;
-
-                character.style.left = characterPositionX + 'px';
-                character.style.top = characterPositionY + 'px';
-
-                checkCollision();
-            }
-        }
-
-        function checkCollision() {
-            const characterRect = character.getBoundingClientRect();
-            const npcRect = npc.getBoundingClientRect();
-
-            if (characterRect.right >= npcRect.left && characterRect.left <= npcRect.right &&
-                characterRect.bottom >= npcRect.top && characterRect.top <= npcRect.bottom) {
-                showQuestion();
-            }
-        }
 
         function showQuestion() {
             const currentQuestion = questions[currentQuestionIndex];
@@ -143,21 +160,23 @@
                 const button = document.createElement('button');
                 button.textContent = option;
                 button.classList.add('option');
-                button.addEventListener('click', () => checkAnswer(option));
+                button.addEventListener('click', () => checkAnswer(option, button));
                 optionsElement.appendChild(button);
             });
         }
 
-        function checkAnswer(selectedOption) {
+        function checkAnswer(selectedOption, button) {
             const currentQuestion = questions[currentQuestionIndex];
             if (selectedOption === currentQuestion.answer) {
                 resultElement.textContent = "Resposta correta!";
                 score++;
+                button.classList.add('correct');
             } else {
                 resultElement.textContent = "Resposta incorreta.";
+                button.classList.add('incorrect');
             }
 
-            nextButton.style.display = 'block';
+            setTimeout(showNextQuestion, 500);
         }
 
         function showNextQuestion() {
@@ -165,7 +184,6 @@
             if (currentQuestionIndex < questions.length) {
                 showQuestion();
                 resultElement.textContent = '';
-                nextButton.style.display = 'none';
             } else {
                 endGame();
             }
@@ -175,68 +193,19 @@
             questionElement.textContent = `Você completou o jogo! Sua pontuação final é ${score} de ${questions.length}.`;
             optionsElement.innerHTML = '';
             resultElement.textContent = '';
-            nextButton.style.display = 'none';
+            const resetButton = document.createElement('button');
+            resetButton.textContent = 'Reiniciar Jogo';
+            resetButton.addEventListener('click', resetGame);
+            optionsElement.appendChild(resetButton);
         }
 
-        nextButton.addEventListener('click', showNextQuestion);
-
-        // Variáveis para controlar a movimentação suave
-        let animationFrameId;
-        let moveX = 0;
-        let moveY = 0;
-
-        function smoothMove() {
-            moveCharacter(moveX, moveY);
-            animationFrameId = requestAnimationFrame(smoothMove);
+        function resetGame() {
+            currentQuestionIndex = 0;
+            score = 0;
+            showQuestion();
         }
 
-        // Event listeners para WASD para movimentar o personagem
-        document.addEventListener('keydown', function(event) {
-            switch(event.key.toLowerCase()) {
-                case 'a':
-                case 'A':
-                    moveX = -1; // Direção esquerda
-                    break;
-                case 'd':  
-                case 'D':
-                    moveX = 1; // Direção direita
-                    break;
-                case 'w':
-                case 'W':
-                    moveY = -1; // Direção cima
-                    break;
-                case 's':
-                case 'S':
-                    moveY = 1; // Direção baixo
-                    break;
-            }
-
-            if (!animationFrameId) {
-                animationFrameId = requestAnimationFrame(smoothMove);
-            }
-        });
-
-        document.addEventListener('keyup', function(event) {
-            switch(event.key.toLowerCase()) {
-                case 'a':
-                case 'A':
-                case 'd':
-                case 'D':
-                    moveX = 0;
-                    break;
-                case 'w':
-                case 'W':
-                case 's':
-                case 'S':
-                    moveY = 0;
-                    break;
-            }
-
-            if (moveX === 0 && moveY === 0) {
-                cancelAnimationFrame(animationFrameId);
-                animationFrameId = undefined;
-            }
-        });
+        showQuestion();
     </script>
 </body>
 </html>
