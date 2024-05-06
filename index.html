@@ -171,34 +171,6 @@
             const resultElement = document.getElementById('result');
 
             function showQuestion() {
-                const currentQuestion = questions[currentQuestionIndex];
-                questionElement.textContent = currentQuestion.question;
-                optionsElement.innerHTML = '';
-
-                currentQuestion.options.forEach((option, index) => {
-                    const button = document.createElement('button');
-                    button.textContent = option;
-                    button.classList.add('option');
-                    button.addEventListener('click', () => checkAnswer(option, button));
-                    optionsElement.appendChild(button);
-                });
-            }
-
-            function checkAnswer(selectedOption, button) {
-                const currentQuestion = questions[currentQuestionIndex];
-                if (selectedOption === currentQuestion.answer) {
-                    resultElement.textContent = "Resposta correta!";
-                    score++;
-                    button.classList.add('correct');
-                } else {
-                    resultElement.textContent = "Resposta incorreta.";
-                    button.classList.add('incorrect');
-                }
-
-                setTimeout(showNextQuestion, 500);
-            }
-
-            function showQuestion() {
     const currentQuestion = questions[currentQuestionIndex];
     questionElement.textContent = currentQuestion.question;
     optionsElement.innerHTML = '';
@@ -207,11 +179,46 @@
         const button = document.createElement('button');
         button.textContent = option;
         button.classList.add('option');
-        button.addEventListener('mouseenter', () => showImage(button));
-        button.addEventListener('mouseleave', () => hideImage(button));
+        button.addEventListener('mouseenter', () => showImage(button)); // Adicionar event listener para mostrar a imagem quando o mouse passar sobre a opção
+        button.addEventListener('mouseleave', () => hideImage(button)); // Adicionar event listener para esconder a imagem quando o mouse sair da opção
+        button.addEventListener('click', () => checkAnswer(option, button));
         optionsElement.appendChild(button);
     });
 }
+
+
+
+            function checkAnswer(selectedOption, button) {
+    const currentQuestion = questions[currentQuestionIndex];
+    if (selectedOption === currentQuestion.answer) {
+        resultElement.textContent = "Resposta correta!";
+        score++;
+        button.classList.add('correct');
+    } else {
+        resultElement.textContent = "Resposta incorreta.";
+        button.classList.add('incorrect');
+    }
+
+
+
+    // Avançar para a próxima pergunta após um intervalo de tempo
+    setTimeout(showNextQuestion, 1000);
+}
+
+function showNextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        showQuestion(); // Chamar a função showQuestion para exibir a próxima pergunta
+        resultElement.textContent = ''; // Limpar o resultado anterior
+        document.addEventListener("mouseenter", showImage);
+    } 
+    else {
+        endGame(); // Se todas as perguntas foram feitas, chamar endGame
+    }
+}
+
+
+        
 
 function showImage(button) {
     const image = document.createElement('img');
