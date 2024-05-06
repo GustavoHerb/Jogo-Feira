@@ -1,211 +1,248 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jogo de Perguntas e Respostas</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            max-width: 600px;
-            text-align: center;
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            margin-bottom: 30px;
-            color: #333;
-        }
-        #question {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-        #options {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .option {
-            font-size: 18px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            padding: 10px 20px;
-            border-radius: 5px;
-            border: none;
-            background-color: #f0f0f0;
-            transition: background-color 0.3s ease;
-        }
-        .option:hover {
-            background-color: #e0e0e0;
-        }
-        #result {
-            font-size: 20px;
-            margin-top: 20px;
-        }
-        .correct {
-            background-color: #8BC34A;
-        }
-        .incorrect {
-            background-color: #FF5722;
-        }
-        button {
-            font-size: 16px;
-            padding: 10px 20px;
-            border-radius: 5px;
-            border: none;
-            cursor: pointer;
-            background-color: #4CAF50;
-            color: black;
-            transition: background-color 0.3s ease;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Jogo de Perguntas e Respostas</h1>
-        <div id="question"></div>
-        <div id="options"></div>
-        <div id="result"></div>
-    </div>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Jogo de Perguntas e Respostas</title>
+        <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Jogo de Perguntas e Respostas</title>
 
-    <script>
-        const questions = [
-            {
-                question: "Qual é a capital do Brasil?",
-                options: ["Rio de Janeiro", "Brasília", "São Paulo", "Salvador"],
-                answer: "Brasília"
-            },
-            {
-                question: "Quem escreveu 'Dom Quixote'?",
-                options: ["Miguel de Cervantes", "William Shakespeare", "Jane Austen", "Charles Dickens"],
-                answer: "Miguel de Cervantes"
-            },
-            {
-                question: "Qual é o maior planeta do sistema solar?",
-                options: ["Júpiter", "Vênus", "Terra", "Saturno"],
+
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Jaro:opsz@6..72&display=swap');
+            body {
+                font-family: Jaro;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            }
+            .container {
+                max-width: 600px;
+                text-align: center;
+                background-color:#fff;
+                padding: 30px;
+                border-radius: 10px;
+                box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            }
+            h1 {
+                margin-bottom: 30px;
+                color: #333;
+            }
+            #question {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+            #options {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .option {
+                position: relative;
+                font-size: 18px;
+                font-family: Jaro;
+                margin-bottom: 10px;
+                cursor: pointer;
+                padding: 10px 20px;
+                border-radius: 5px;
+                border: none;
+                background-color: #f0f0f0;
+                transition: background-color 0.3s ease;
+                display: flex;
+                align-items: center;
+            }
+            .option:hover {
+                background-color: #e0e0e0;
+            }
+            .option img {
+                width: 20px; /* Ajuste o tamanho da imagem conforme necessário */
+                margin-right: 10px;
+            }
+            #result {
+                font-size: 20px;
+                margin-top: 20px;
+            }
+            .correct {
+                background-color: #8BC34A;
+            }
+            .incorrect {
+                background-color: #FF5722;
+            }
+            button {
+                font-size: 16px;
+                padding: 10px 20px;
+                border-radius: 5px;
+                border: none;
+                cursor: pointer;
+                background-color: #4CAF50;
+                color: black;
+                transition: background-color 0.3s ease;
+                margin-top: 20px;
+            }
+            button:hover {
+                background-color: #45a049;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Jogo de Perguntas e Respostas</h1>
+            <div id="question"></div>
+            <div id="options"></div>
+            <div id="result"></div>
+        </div>
+
+
+        <script>
+            const questions = [
+                {
+                    question: "Qual é a capital do Brasil?",
+                    options: ["Rio de Janeiro", "Brasília", "São Paulo", "Salvador"],
+                    answer: "Brasília"
+                },
+                {
+                    question: "Quem escreveu 'Dom Quixote'?",
+                    options: ["Miguel de Cervantes", "William Shakespeare", "Jane Austen", "Charles Dickens"],
+                    answer: "Miguel de Cervantes"
+                },
+                {
+                    question: "Qual é o maior planeta do sistema solar?",
+                    options: ["Júpiter", "Vênus", "Terra", "Saturno"],
+                    answer: "Júpiter"
+                },
+
+                {
+                    question: "Quanto é 2 + 9 / 3?",
+                    options: ["9", "2", "5", "6"],
+                    answer: "5"
+                },
+
+        {
+            question: "Qual país com o maior pib per capita?",
+            options: ["Luxemburgo", "Republica Centro Africana", "Angola", "Nepal"],
+            answer: "Luxemburgo"
+        },
+
+                {
+                question: "Qual palavra resuma",
+                options: ["mercado", "Orgãos", "Terra", "Saturno"],
                 answer: "Júpiter"
-            },
+                }
 
-            {
-                question: "Qual é o maior planeta do sistema solar?",
-                options: ["Júpiter", "Vênus", "Terra", "Saturno"],
-                answer: "Júpiter"
-            },
+                ,
+                {
+                    question: "Qual é o maior planeta do sistema solar?",
+                    options: ["Júpiter", "Vênus", "Terra", "Saturno"],
+                    answer: "Júpiter"
+                },
 
-    {
-        question: "Qual é o maior planeta do sistema solar?",
-        options: ["Júpiter", "Vênus", "Terra", "Saturno"],
-        answer: "Júpiter"
-    },
+                {
+                    question: "Qual é o maior planeta do sistema solar?",
+                    options: ["Júpiter", "Vênus", "Terra", "Saturno"],
+                    answer: "Júpiter"
+                },
 
-            {
-                question: "Qual é o maior planeta do sistema solar?",
-                options: ["Júpiter", "Vênus", "Terra", "Saturno"],
-                answer: "Júpiter"
+        {
+            question: "Qual é o maior planeta do sistema solar?",
+            options: ["Júpiter", "Vênus", "Terra", "Saturno"],
+            answer: "Júpiter"
+        },
+
+                {
+                    question: "Qual é o maior planeta do sistema solar?",
+                    options: ["Júpiter", "Vênus", "Terra", "Saturno"],
+                    answer: "Júpiter"
+                }
+            ];
+
+            let currentQuestionIndex = 0;
+            let score = 0;
+
+            const questionElement = document.getElementById('question');
+            const optionsElement = document.getElementById('options');
+            const resultElement = document.getElementById('result');
+
+            function showQuestion() {
+                const currentQuestion = questions[currentQuestionIndex];
+                questionElement.textContent = currentQuestion.question;
+                optionsElement.innerHTML = '';
+
+                currentQuestion.options.forEach((option, index) => {
+                    const button = document.createElement('button');
+                    button.textContent = option;
+                    button.classList.add('option');
+                    button.addEventListener('click', () => checkAnswer(option, button));
+                    optionsElement.appendChild(button);
+                });
             }
 
-            ,
-            {
-                question: "Qual é o maior planeta do sistema solar?",
-                options: ["Júpiter", "Vênus", "Terra", "Saturno"],
-                answer: "Júpiter"
-            },
+            function checkAnswer(selectedOption, button) {
+                const currentQuestion = questions[currentQuestionIndex];
+                if (selectedOption === currentQuestion.answer) {
+                    resultElement.textContent = "Resposta correta!";
+                    score++;
+                    button.classList.add('correct');
+                } else {
+                    resultElement.textContent = "Resposta incorreta.";
+                    button.classList.add('incorrect');
+                }
 
-            {
-                question: "Qual é o maior planeta do sistema solar?",
-                options: ["Júpiter", "Vênus", "Terra", "Saturno"],
-                answer: "Júpiter"
-            },
-
-    {
-        question: "Qual é o maior planeta do sistema solar?",
-        options: ["Júpiter", "Vênus", "Terra", "Saturno"],
-        answer: "Júpiter"
-    },
-
-            {
-                question: "Qual é o maior planeta do sistema solar?",
-                options: ["Júpiter", "Vênus", "Terra", "Saturno"],
-                answer: "Júpiter"
-            }
-        ];
-
-        let currentQuestionIndex = 0;
-        let score = 0;
-
-        const questionElement = document.getElementById('question');
-        const optionsElement = document.getElementById('options');
-        const resultElement = document.getElementById('result');
-
-        function showQuestion() {
-            const currentQuestion = questions[currentQuestionIndex];
-            questionElement.textContent = currentQuestion.question;
-            optionsElement.innerHTML = '';
-
-            currentQuestion.options.forEach((option, index) => {
-                const button = document.createElement('button');
-                button.textContent = option;
-                button.classList.add('option');
-                button.addEventListener('click', () => checkAnswer(option, button));
-                optionsElement.appendChild(button);
-            });
-        }
-
-        function checkAnswer(selectedOption, button) {
-            const currentQuestion = questions[currentQuestionIndex];
-            if (selectedOption === currentQuestion.answer) {
-                resultElement.textContent = "Resposta correta!";
-                score++;
-                button.classList.add('correct');
-            } else {
-                resultElement.textContent = "Resposta incorreta.";
-                button.classList.add('incorrect');
+                setTimeout(showNextQuestion, 500);
             }
 
-            setTimeout(showNextQuestion, 500);
-        }
+            function showQuestion() {
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    optionsElement.innerHTML = '';
 
-        function showNextQuestion() {
-            currentQuestionIndex++;
-            if (currentQuestionIndex < questions.length) {
-                showQuestion();
+    currentQuestion.options.forEach((option, index) => {
+        const button = document.createElement('button');
+        button.textContent = option;
+        button.classList.add('option');
+        button.addEventListener('mouseenter', () => showImage(button));
+        button.addEventListener('mouseleave', () => hideImage(button));
+        optionsElement.appendChild(button);
+    });
+}
+
+function showImage(button) {
+    const image = document.createElement('img');
+    image.src = 'imagem/seta.png'; // caminho para sua imagem
+    image.classList.add('arrow-image');
+    button.appendChild(image);
+}
+
+function hideImage(button) {
+    const image = button.querySelector('.arrow-image');
+    if (image) {
+        button.removeChild(image);
+    }
+}
+            function endGame() {
+                questionElement.textContent = `Você completou o jogo! Sua pontuação final é ${score} de ${questions.length}.`;
+                optionsElement.innerHTML = '';
                 resultElement.textContent = '';
-            } else {
-                endGame();
+                const resetButton = document.createElement('button');
+                resetButton.textContent = 'Reiniciar Jogo';
+                resetButton.addEventListener('click', resetGame);
+                optionsElement.appendChild(resetButton);
             }
-        }
 
-        function endGame() {
-            questionElement.textContent = `Você completou o jogo! Sua pontuação final é ${score} de ${questions.length}.`;
-            optionsElement.innerHTML = '';
-            resultElement.textContent = '';
-            const resetButton = document.createElement('button');
-            resetButton.textContent = 'Reiniciar Jogo';
-            resetButton.addEventListener('click', resetGame);
-            optionsElement.appendChild(resetButton);
-        }
+            function resetGame() {
+                currentQuestionIndex = 0;
+                score = 0;
+                showQuestion();
+            }
 
-        function resetGame() {
-            currentQuestionIndex = 0;
-            score = 0;
             showQuestion();
-        }
-
-        showQuestion();
-    </script>
-</body>
-</html>
+        </script>
+    </body>
+    </html>
