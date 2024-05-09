@@ -103,26 +103,26 @@
 
         <script>
             const questions = [
-                {
-                    question: "Qual é a capital do Brasil?",
-                    options: ["Rio de Janeiro", "Brasília", "São Paulo", "Salvador"],
-                    answer: "Brasília"
+            {
+                    question: "Sobre economia planificada, marque a alternativa CORRRETA.",
+                    options: ["É onde o governo tem as principais decisões sobre a economia", "É onde o setor privado tem as principais decisões sobre a economia", "Escola particulares fazem parte COMPLETAMENTE dessa economia.", "Nenhuma das alternativas anteriores"],
+                    answer: "É onde o governo tem as principais decisões sobre a economia"
                 },
                 {
-                    question: "Quem escreveu 'Dom Quixote'?",
-                    options: ["Miguel de Cervantes", "William Shakespeare", "Jane Austen", "Charles Dickens"],
-                    answer: "Miguel de Cervantes"
+                    question: "Sobre economia de mercado, marque a alternativa CORRRETA.",
+                    options: ["É onde o governo tem as principais decisões sobre a economia", "É onde o setor privado tem as principais decisões sobre a economia", "Escola particulares fazem parte COMPLETAMENTE dessa economia.", "Nenhuma das alternativas anteriores"],
+                    answer: "É onde o setor privado tem as principais decisões sobre a economia"
                 },
                 {
-                    question: "Qual é o maior planeta do sistema solar?",
-                    options: ["Júpiter", "Vênus", "Terra", "Saturno"],
-                    answer: "Júpiter"
+                    question: "Diga um par de números amigos?",
+                    options: ["220 e 284", "-5 e 8", "4 e 1", "1 e 3"],
+                    answer: "220 e 284"
                 },
 
                 {
-                    question: "Quanto é 2 + 9 / 3?",
-                    options: ["9", "2", "5", "6"],
-                    answer: "5"
+                 question: "Quanto é 2 + 9 / 3?",
+                 options: ["9", "2", "5", "6"],
+                 answer: "5"
                 },
 
         {
@@ -132,34 +132,34 @@
         },
 
                 {
-                question: "Qual palavra resuma",
-                options: ["mercado", "Orgãos", "Terra", "Saturno"],
-                answer: "Júpiter"
+                question: "Por que o zero é um numero par?",
+                options: ["Pois há um par de números inteiros, que juntos formam zero", "Zero é um número impar", "Pois zero é um número", "Nenhuma das alternativas anteriores"],
+                answer: "Pois há um par de números inteiros, que juntos formam zero"
                 }
 
                 ,
                 {
-                    question: "Qual é o maior planeta do sistema solar?",
-                    options: ["Júpiter", "Vênus", "Terra", "Saturno"],
-                    answer: "Júpiter"
+                    question: "Sobre os tipos de matemática",
+                    options: ["Tabela periódica, astronomia", "Álgebra e estatística", "MRU e MUV", "MRU e álgebra"],
+                    answer: "Álgebra e estatística"
                 },
 
                 {
-                    question: "Qual é o maior planeta do sistema solar?",
-                    options: ["Júpiter", "Vênus", "Terra", "Saturno"],
-                    answer: "Júpiter"
+                    question: "O que é economia?",
+                    options: ["Economia é sobre como as pessoas lidam com dinheiro e recursos.", "É o estudo dos números", "É o estudo da astronomia", "Nenhuma das anteriores"],
+                    answer: "Economia é sobre como as pessoas lidam com dinheiro e recursos."
                 },
 
         {
-            question: "Qual é o maior planeta do sistema solar?",
-            options: ["Júpiter", "Vênus", "Terra", "Saturno"],
-            answer: "Júpiter"
+            question: "O que é matemática?",
+            options: ["O estudo da vida", "O estudo da terra", "O estuda da história", "O estudo dos números e formulas"],
+            answer: "O estudo dos números e formulas"
         },
 
                 {
-                    question: "Qual é o maior planeta do sistema solar?",
-                    options: ["Júpiter", "Vênus", "Terra", "Saturno"],
-                    answer: "Júpiter"
+                    question: "Em que ano prêmio de Ciências Econômicas foi estabelecido?",
+                    options: ["1000", "1469", "1968", "1345"],
+                    answer: "1968"
                 }
             ];
 
@@ -234,7 +234,8 @@ function hideImage(button) {
     }
 }
             function endGame() {
-                questionElement.textContent = `Você completou o jogo! Sua pontuação final é ${score} de ${questions.length}.`;
+                questionElement.textContent = `Você completou o jogo! Sua pontuação final é ${score} de ${questions.length}.
+                Você ganhou 200 reais em cedúla de cachorro caramelo, parabéns!`;
                 optionsElement.innerHTML = '';
                 resultElement.textContent = '';
                 const resetButton = document.createElement('button');
